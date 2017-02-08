@@ -1,9 +1,9 @@
 # Web scraping application
 
-
 ## Usage
 
 ```
+> cd hackernews/bin/Debug
 > hackernews.exe --posts n
 ---------------------------------------
 n = Number of posts requested ( less or equals to 100)
@@ -41,7 +41,7 @@ n = Number of posts requested ( less or equals to 100)
 ]
 ```
 
-## Library used
+## Libraries
 
-- `Newtonsoft.Json` for
-- `HtmlAgilityPack`
+- `Newtonsoft.Json` this library allows serialising .Net object to JSON. It is really easy to use.
+- `HtmlAgilityPack` is a library to parse html page using xpath and XSLT. I used this library for the fact that the object model is really similar to System.Xml
