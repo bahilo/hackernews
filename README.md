@@ -3,7 +3,7 @@ Web scraping application
 
 ========================[ USAGE ]==========================
 
-hackernews.exe --posts
+hackernews.exe --posts n
 
 ---------------------------------------
 
