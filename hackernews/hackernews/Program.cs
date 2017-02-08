@@ -17,17 +17,29 @@ namespace hackernews
         static void Main(string[] args)
         {     
             int nuberOfPostRequested = 0;
-            //args = new string[] { "--posts", "32" };
 
+            // check that the inputs are respecting the requirement
+            // inputs format: --posts n
+            // n : maximun output post (<= 100)
             if (args.Count() > 1 && !string.IsNullOrEmpty(args[0]) && args[0].Equals("--posts") && int.TryParse(args[1], out nuberOfPostRequested) && nuberOfPostRequested <= 100)
             {
+                // represent the xpath matching pattern
                 string xpathPostFilter = "//table[@class=\"itemlist\"][1]/tr";
+
+                // initilize the scraping
                 Scraper scraper = new Scraper("https://news.ycombinator.com/news", nuberOfPostRequested, xpathPostFilter);
+
+                // start scraping the html document
                 List<Post> posts = scraper.parse();
+
+                // formating the output
                 string jsonFormatted = JValue.Parse(JsonConvert.SerializeObject(posts)).ToString(Formatting.Indented);
 
+                // output the posts
                 Console.WriteLine(jsonFormatted);
             }
+
+            // otherwise output usage
             else
             {
                 Console.WriteLine("========================[ USAGE ]==========================\n\n");
