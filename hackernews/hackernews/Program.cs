@@ -36,7 +36,7 @@ namespace hackernews
                 string jsonFormatted = JValue.Parse(JsonConvert.SerializeObject(posts)).ToString(Formatting.Indented);
 
                 // output the posts
-                Console.WriteLine(jsonFormatted);
+                Console.WriteLine("\n"+jsonFormatted);
             }
 
             // otherwise output usage

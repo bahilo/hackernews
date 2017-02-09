@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace hackernews.Classes
@@ -46,6 +47,10 @@ namespace hackernews.Classes
         {
             List<Post> outPutPosts = new List<Post>();
 
+            // regex pattern to meet URI requirement
+            string uriPattern = @"^(http|https)://";
+            var regex = new Regex(uriPattern);
+
             // loading downloading the html document
             var pageContent = new HtmlWeb().Load(_uri + "?p=" + page);
 
@@ -63,7 +68,6 @@ namespace hackernews.Classes
                 {
                     // getting each piece of information contained in the table row
                     string xpathPostElementFiler = _xpathPostFilter + "[" + i + "]/td";
-
                     
                     if (pageContent.DocumentNode.SelectNodes(xpathPostElementFiler) != null)
                     {
@@ -80,6 +84,7 @@ namespace hackernews.Classes
                                 post.Title = pageContent.DocumentNode.SelectSingleNode(xpathPostEmentChildFiler + "//a[@class=\"storylink\"]").InnerText;
                                 post.Title = (post.Title.Length > 256) ? post.Title.Substring(0, 256) : post.Title;
                                 post.Uri = pageContent.DocumentNode.SelectSingleNode(xpathPostEmentChildFiler + "//a[@class=\"storylink\"]").Attributes["href"].Value;
+                                post.Uri = (regex.Match(post.Uri).Success) ? post.Uri : "" ;
                             }
 
                             // getting the poins by matching the class score of the second table row
@@ -109,7 +114,7 @@ namespace hackernews.Classes
                             }
 
                             // checking that the information have been read
-                            if (nbAssignedProperties == 2 && !string.IsNullOrEmpty(post.Title) && !string.IsNullOrEmpty(post.Author))
+                            if (nbAssignedProperties == 2 && !string.IsNullOrEmpty(post.Title) && !string.IsNullOrEmpty(post.Author) && !string.IsNullOrEmpty(post.Uri))
                                 areAllPostPropertiesAssigned = true;
                         }
 

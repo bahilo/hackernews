@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hackernews", "hackernews\hackernews.csproj", "{25451BE6-4129-48C9-831B-4A254351948C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hackernewsTests", "hackernewsTests\hackernewsTests.csproj", "{FA2D80D3-9DC4-4D16-A1E8-9086F5B141EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{25451BE6-4129-48C9-831B-4A254351948C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25451BE6-4129-48C9-831B-4A254351948C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25451BE6-4129-48C9-831B-4A254351948C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FA2D80D3-9DC4-4D16-A1E8-9086F5B141EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA2D80D3-9DC4-4D16-A1E8-9086F5B141EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA2D80D3-9DC4-4D16-A1E8-9086F5B141EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA2D80D3-9DC4-4D16-A1E8-9086F5B141EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
