@@ -1,4 +1,5 @@
 ﻿using hackernews.Entities;
+using hackernews.Interfaces;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace hackernews.Classes
 {
-    public class Scraper
+    public class Scraper : IScraper
     {
         const int _numberOfPostOnEachPage = 30;
         string _uri;
@@ -17,25 +18,45 @@ namespace hackernews.Classes
         string _xpathPostFilter;
         int _numberOfPostsRequested;
 
-        public Scraper(string webPageUri, int numberOfPostsRequested, string xpathPostFilter)
+        public Scraper(string webPageUri, string xpathPostFilter)
         {
             _uri = webPageUri;
+            _xpathPostFilter = xpathPostFilter;
+        }
+
+        public Scraper(string webPageUri, int numberOfPostsRequested, string xpathPostFilter)
+            : this(webPageUri, xpathPostFilter)
+        {            
             _posts = new List<Post>();
             _numberOfPostsRequested = numberOfPostsRequested;
-            _xpathPostFilter = xpathPostFilter;
-       }
-        
+        }
+
         public List<Post> parse()
         {
             List<Post> outPutPosts = new List<Post>();
 
             // calcul of the amount of pages to reach the number of posts requested
-            int nbPageToParse = (_numberOfPostsRequested > _numberOfPostOnEachPage) ? (int)Math.Ceiling((double) _numberOfPostsRequested / _numberOfPostOnEachPage) : 1 ;
-            
+            int nbPageToParse = (_numberOfPostsRequested > _numberOfPostOnEachPage) ? (int)Math.Ceiling((double)_numberOfPostsRequested / _numberOfPostOnEachPage) : 1;
+
             // scraping by page
-            for(int page = 1; page <= nbPageToParse; page++)
-                outPutPosts = outPutPosts.Concat(readDocument(page, _numberOfPostsRequested - outPutPosts.Count )).ToList();
-               
+            for (int page = 1; page <= nbPageToParse; page++)
+                outPutPosts = outPutPosts.Concat(readDocument(page, _numberOfPostsRequested - outPutPosts.Count)).ToList();
+
+            return outPutPosts;
+        }
+
+        public List<Post> parse(int numberOfPostsRequested)
+        {
+            List<Post> outPutPosts = new List<Post>();
+            _numberOfPostsRequested = numberOfPostsRequested;
+
+            // calcul of the amount of pages to reach the number of posts requested
+            int nbPageToParse = (_numberOfPostsRequested > _numberOfPostOnEachPage) ? (int)Math.Ceiling((double)_numberOfPostsRequested / _numberOfPostOnEachPage) : 1;
+
+            // scraping by page
+            for (int page = 1; page <= nbPageToParse; page++)
+                outPutPosts = outPutPosts.Concat(readDocument(page, _numberOfPostsRequested - outPutPosts.Count)).ToList();
+
             return outPutPosts;
         }
 
@@ -43,7 +64,7 @@ namespace hackernews.Classes
         // the posts are formated in tables
         // the information of one post is contained on 2 rows of the table
         // then followed by an empty table row
-        private List<Post> readDocument( int page, int numberOfPostRemain)
+        public List<Post> readDocument( int page, int numberOfPostRemain)
         {
             List<Post> outPutPosts = new List<Post>();
 

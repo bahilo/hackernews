@@ -42,6 +42,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,9 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\HackerNewsLauncher.cs" />
     <Compile Include="Classes\Scraper.cs" />
     <Compile Include="Classes\Utility.cs" />
     <Compile Include="Entities\Post.cs" />
+    <Compile Include="Interfaces\ILauncher.cs" />
+    <Compile Include="Interfaces\IScraper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
