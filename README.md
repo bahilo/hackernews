@@ -1,5 +1,8 @@
 # Web scraping application
 
+This console application has been developed in the .NET enrironment using C# language.
+The application starts the scraping by downloading the web page, then through XPATH patterns extracts the differents pieces of information.
+
 ## Usage
 
 ```
