@@ -10,5 +10,6 @@ namespace hackernews.Interfaces
     public interface ILauncher
     {
         List<Post> getPosts(int nuberOfPostRequested);
+        void initialize();
     }
 }

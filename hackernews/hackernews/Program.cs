@@ -10,6 +10,7 @@ using hackernews.Entities;
 using hackernews.Classes;
 using Newtonsoft.Json.Linq;
 using hackernews.Interfaces;
+using System.Configuration;
 
 namespace hackernews
 {
@@ -24,11 +25,22 @@ namespace hackernews
             // n : maximun output post (<= 100)
             if (args.Count() > 1 && !string.IsNullOrEmpty(args[0]) && args[0].Equals("--posts") && int.TryParse(args[1], out nuberOfPostRequested) && nuberOfPostRequested <= 100)
             {
+                List<Post> posts = new List<Post>();
+
                 // initilize the scraping
                 ILauncher start = new HackerNewsLauncher();
-                 
-                // start scraping the html document
-                List<Post> posts = start.getPosts(nuberOfPostRequested);
+                start.initialize();
+
+                try
+                {
+                    // start scraping the html document
+                    posts = start.getPosts(nuberOfPostRequested);
+                }
+                catch (System.Net.WebException)
+                {
+                    Console.WriteLine("/!\\ Could not reach the web page "+ConfigurationManager.AppSettings["webpageuri"] +" \nPlease check your internet connection.");
+                    Environment.Exit(2);
+                }
 
                 // formating the output
                 string jsonFormatted = JValue.Parse(JsonConvert.SerializeObject(posts)).ToString(Formatting.Indented);

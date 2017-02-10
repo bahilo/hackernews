@@ -17,24 +17,19 @@ namespace hackernews.Classes
 
         int _nuberOfPostRequested;
         IScraper _scraper;
+        
 
-        public HackerNewsLauncher()
-        {
-            
-            initialize();
-        }
-
-        private void initialize()
+        public void initialize()
         {
             try
             {
                 string uri = ConfigurationManager.AppSettings["webpageuri"];
-                if (new Regex(@"^(http://|https://|item\?id=)").Match(uri).Success)
+                if (Utility.checkIfValidURI(uri))
                 {
                     _scraper = new Scraper(uri, _xpathPostFilter);
                 }
                 else
-                    throw new ApplicationException("The uri found in the configuration file is not a valid uri.");
+                    throw new ApplicationException("The URI ("+uri+") found in the configuration file is not a valid URI.");
                    
             }
             catch (ApplicationException ex)
