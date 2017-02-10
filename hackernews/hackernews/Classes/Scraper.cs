@@ -47,17 +47,8 @@ namespace hackernews.Classes
 
         public List<Post> parse(int numberOfPostsRequested)
         {
-            List<Post> outPutPosts = new List<Post>();
-            _numberOfPostsRequested = numberOfPostsRequested;
-
-            // calcul of the amount of pages to reach the number of posts requested
-            int nbPageToParse = (_numberOfPostsRequested > _numberOfPostOnEachPage) ? (int)Math.Ceiling((double)_numberOfPostsRequested / _numberOfPostOnEachPage) : 1;
-
-            // scraping by page
-            for (int page = 1; page <= nbPageToParse; page++)
-                outPutPosts = outPutPosts.Concat(readDocument(page, _numberOfPostsRequested - outPutPosts.Count)).ToList();
-
-            return outPutPosts;
+            _numberOfPostsRequested = numberOfPostsRequested;            
+            return parse();
         }
 
         // scraping the html document. 

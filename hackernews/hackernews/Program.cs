@@ -27,7 +27,7 @@ namespace hackernews
             {
                 List<Post> posts = new List<Post>();
 
-                // initilize the scraping
+                // initialize the scraping
                 ILauncher start = new HackerNewsLauncher();
                 start.initialize();
 
